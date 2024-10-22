@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pw_CrowEye_0: 3530468259919972060
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
