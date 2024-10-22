@@ -1,0 +1,11 @@
+.panel {
+    align-items: center;
+}
+
+.menu {
+    align-items: center;
+    width: 437px;
+    max-height: 553px;
+    background-color: rgba(32, 3, 154, 0.56);
+    align-content: auto;
+}
