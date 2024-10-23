@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pw_BootsGlow_0: 123739441841548722
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
