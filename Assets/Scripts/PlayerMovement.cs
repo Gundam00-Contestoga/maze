@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private bool isMovementEnabled = true;
+    private Animator anim;
+    private Vector3 originalScale;
 
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -21,12 +23,15 @@ public class PlayerMovement : MonoBehaviour
             // Flip player left or right
             if (horizontal < 0)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.5f, 0.5f, 1);
             }
             else if (horizontal > 0)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.5f, 0.5f, 1);
             }
+
+            //Set animator parameters
+            anim.SetBool("run", horizontal != 0 || vertical != 0);
         }
     }
 
