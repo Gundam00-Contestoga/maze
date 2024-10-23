@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour
     //PlayerController needs to enable the player movements
     void StartMaze()
     {
+
+        //UI needs to close the Start Menu
+        gameUI.DisplayStartMenu(false);
+
         hasKey = false;
 
         /*
@@ -79,7 +83,7 @@ public class GameManager : MonoBehaviour
 
         //UIManager needs to start with a default HUD
         //gameUI.StartDefaultUI();
-        gameUI.Start();
+        gameUI.DisplayGameUI(true);
 
         //PlayerController needs to enable the player
         characterMovement.EnablePlayer();
@@ -225,17 +229,18 @@ public class GameManager : MonoBehaviour
     {
         GameUI.OnContinuePressed += ResumeMaze;
         GameUI.OnExitPressed += ExitGame;
+        GameUI.OnStartPressed += StartMaze;
     }
     private void OnDisable()
     {
         GameUI.OnContinuePressed -= ResumeMaze;
         GameUI.OnExitPressed -= ExitGame;
+        GameUI.OnStartPressed -= StartMaze;
     }
     //Closing the game
     public void ExitGame()
     {
         Application.Quit();
     }
-
 
 }
