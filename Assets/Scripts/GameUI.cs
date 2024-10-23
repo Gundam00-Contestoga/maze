@@ -13,7 +13,7 @@ public class GameUI : MonoBehaviour, IGameUI
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI messageText;
     public Image itemImage;
-    public Image itemBackgroundImage;
+    public Image itemGlowEffect;
     private float timeRemaining;
 
     [Header("Inventory UI")]
@@ -41,27 +41,33 @@ public class GameUI : MonoBehaviour, IGameUI
 
     #region Gameplay UI
     public void UpdateCurrentItem(Sprite itemSprite)
+    {
+        if (itemSprite != null)
         {
-            if (itemSprite != null)
-            {
-                itemImage.enabled = true;
-                itemImage.sprite = itemSprite;
-            }
-            else
-            {
-                itemImage.enabled = false;
-            }
+            itemImage.enabled = true;
+            itemImage.sprite = itemSprite;
         }
-
-        public void UpdateScore(int score)
+        else
         {
-            scoreText.text = "Score: " + score.ToString();
+            itemImage.enabled = false;
+            itemGlowEffect.enabled = false;
         }
+    }
 
-        public void UpdateTimer(TimeSpan time)
-        {        
-            timerText.text = "Timer: " + string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
-        }
+    public void SetItemConfirmation()
+    {
+        itemGlowEffect.enabled = true;
+    }
+
+    public void UpdateScore(int score)
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    public void UpdateTimer(TimeSpan time)
+    {        
+        timerText.text = "Timer: " + string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+    }
     #endregion
 
     #region End Game UI
