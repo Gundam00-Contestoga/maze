@@ -8,17 +8,19 @@ public class GameManager : MonoBehaviour
 {
     //Creating the objects
     public GameUI gameUI;
-    public CharacterMovement characterMovement;
+    public PlayerMovement playerMovement;
     public MazeController mazeController;
     public ItemManager itemManager;
+    public TimeManager timeManager;
 
     
     //Variables
     public bool hasKey = false;
     public int score = 0;
-    public float gameTimer; //Time.deltaTime needs to be a float
+    //public float gameTimer; //Time.deltaTime needs to be a float
     //public bool isGamePaused; Replaced by Time.timeScale
     public bool isWinner;
+    public TimeSpan levelDuration = TimeSpan.FromMinutes(3);
 
 
 
@@ -26,7 +28,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //StartMaze();
+        //Creating the object
+        timeManager = new TimeManager(levelDuration);
 
         //Opening the Start Menu at the beginning of the game
         gameUI.DisplayStartMenu(true);
@@ -36,7 +39,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Update the timer every frame
-        ControlTimer();
+        //ControlTimer();
+        //Updating the time and checking is the time is ended
+        if (timeManager.UpdateTime(Time.deltaTime))
+        {
+            isWinner = false;
+            EndMaze();
+        }
+        else
+        {
+            //Updating the UI with the updated time
+            gameUI.UpdateTimer(timeManager.GetGameTime());
+        }
 
         //Open the Pause Menu when pressed ESC or close if it is already open
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -63,6 +77,8 @@ public class GameManager : MonoBehaviour
         gameUI.DisplayStartMenu(false);
 
         hasKey = false;
+        isWinner = false;
+        score = 0;
 
         /*
             O Time.timeScale é uma propriedade do Unity que controla a velocidade do tempo do jogo. 
@@ -72,11 +88,14 @@ public class GameManager : MonoBehaviour
             Time.timeScale < 1: O jogo é desacelerado (ex.: 0.5 significa que o tempo passa à metade da velocidade normal).
         */
         //Game is running
-        Time.timeScale = 1;
+        //Não preciso mais disso. Vou adiministrar na TimeManager
+        //Time.timeScale = 1;
 
-        isWinner = false;
-        score = 0;
-        gameTimer = 300; //3 minutes
+
+        //gameTimer = 300; //3 minutes
+
+        //Starting the time
+        timeManager.StartTime();
 
         //MazeController need to reset the mazer
         mazeController.StartDefaultMaze();
@@ -86,7 +105,7 @@ public class GameManager : MonoBehaviour
         gameUI.DisplayGameUI(true);
 
         //PlayerController needs to enable the player
-        characterMovement.EnablePlayer();
+        playerMovement.SetMovementEnabled(true);
 
     }
 
@@ -96,10 +115,11 @@ public class GameManager : MonoBehaviour
     void PauseMaze()
     {
         //Pausing the timer
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        timeManager.PauseTime();
 
         //Disalbe player movement
-        characterMovement.DisablePlayer();
+        playerMovement.SetMovementEnabled(false);
 
         //Display Pause Screen
         gameUI.DisplayPauseScreen(true);
@@ -112,35 +132,37 @@ public class GameManager : MonoBehaviour
     void ResumeMaze()
     {
         //Restarting the timer
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+        timeManager.ResumeTime();
 
         //Enable player movement
-        characterMovement.EnablePlayer();
+        //characterMovement.EnablePlayer();
+        playerMovement.SetMovementEnabled(true);
 
         //Close Pause Screen
         gameUI.DisplayPauseScreen(false);
     }
 
     //Control the timer
-    void ControlTimer()
-    {
+    //void ControlTimer()
+    //{
 
-        //Check if the game is over
-        if (gameTimer <= 0)
-        {
-            isWinner = false;
-            EndMaze();
-        }
-        else
-        {
-            //Decrease the timer for each second
-            gameTimer -= Time.deltaTime;
+    //    //Check if the game is over
+    //    if (gameTimer <= 0)
+    //    {
+    //        isWinner = false;
+    //        EndMaze();
+    //    }
+    //    else
+    //    {
+    //        //Decrease the timer for each second
+    //        gameTimer -= Time.deltaTime;
 
-            //Update the UI
-            gameUI.UpdateTimer(gameTimer);
-        }
+    //        //Update the UI
+    //        gameUI.UpdateTimer(gameTimer);
+    //    }
 
-    }
+    //}
 
 
     //Reset the Maze
@@ -179,7 +201,7 @@ public class GameManager : MonoBehaviour
             {
                 //Stoping the timer to display the message
                 PauseMaze();
-                gameUI.DisplayMsg("You need a key first!");
+                gameUI.DisplayMsg("You need a key to open this door!");
             }
         }
         else
@@ -194,7 +216,11 @@ public class GameManager : MonoBehaviour
     void EndMaze()
     {
         //Stoping the timer
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        timeManager.PauseTime();
+
+        //Updating UI Time
+        gameUI.UpdateEndGameTimer(timeManager.GetGameTime());
 
         //Bonus Point
         score += Convert.ToInt32(gameTimer * 10);
@@ -203,7 +229,7 @@ public class GameManager : MonoBehaviour
         gameUI.UpdateScore(score);
 
         //Disable player movements
-        characterMovement.DisablePlayer();
+        playerMovement.SetMovementEnabled(false);
 
         //Call UI to display winner screen
         gameUI.DisplayEndGame(isWinner);
@@ -217,14 +243,18 @@ public class GameManager : MonoBehaviour
     }
 
     //Update the time system. Increase or decrease
-    void UpdateTimer(float timeToUpdate)
+    void UpdateTime(float timeToUpdate)
     {
-        gameTimer += timeToUpdate;
-        gameUI.UpdateTimer(gameTimer);
+        //gameTimer += timeToUpdate;
+        //gameUI.UpdateTimer(gameTimer);
+
+        timeManager.AddTime(TimeSpan.FromSeconds(timeToUpdate));
+        gameUI.UpdateTimer(timeManager.GetGameTime());
+
     }
 
     
-    //Linking the buttons on Pause Menu
+    //Linking the buttons on Menus
     private void OnEnable()
     {
         GameUI.OnContinuePressed += ResumeMaze;
