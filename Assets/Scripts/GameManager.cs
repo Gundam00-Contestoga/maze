@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public MazeController mazeController;
     public ItemManager itemManager;
     public TimeManager timeManager;
+    public ScoreManager scoreManager;
 
     
     //Variables
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Creating the object
-        timeManager = new TimeManager(levelDuration);
+        //timeManager = new TimeManager(levelDuration);
+        //scoreManager = new ScoreManager();
 
         //Opening the Start Menu at the beginning of the game
         gameUI.DisplayStartMenu(true);
@@ -75,6 +77,10 @@ public class GameManager : MonoBehaviour
 
         //UI needs to close the Start Menu
         gameUI.DisplayStartMenu(false);
+
+        //Creating the objects
+        timeManager = new TimeManager(levelDuration);
+        scoreManager = new ScoreManager();
 
         hasKey = false;
         isWinner = false;
@@ -185,7 +191,8 @@ public class GameManager : MonoBehaviour
             PauseMaze();
             
             //Increse the score
-            UpdateScore(100);
+            //UpdateScore(100);
+            scoreManager.UpdateScore(100);
 
             gameUI.DisplayMsg("Key founded! Search for the exit door!");
         }
@@ -194,7 +201,9 @@ public class GameManager : MonoBehaviour
             if (hasKey)
             {
                 isWinner = true;
-                UpdateScore(300);
+                //UpdateScore(300);
+                scoreManager.UpdateScore(300);
+
                 EndMaze();
             }
             else
@@ -223,10 +232,14 @@ public class GameManager : MonoBehaviour
         gameUI.UpdateEndGameTimer(timeManager.GetGameTime());
 
         //Bonus Point
-        score += Convert.ToInt32(gameTimer * 10);
+        //score += Convert.ToInt32(gameTimer * 10);
+        int bonusPoints = Convert.ToInt32(timeManager.GetGameTime().TotalSeconds * 10);
+        scoreManager.UpdateScore(bonusPoints);
+
 
         //Updating the UI Score
-        gameUI.UpdateScore(score);
+        //gameUI.UpdateScore(score);
+        gameUI.UpdateEndGameScore(scoreManager.GetScore());
 
         //Disable player movements
         playerMovement.SetMovementEnabled(false);
