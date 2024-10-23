@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: d996d2e1ee178ac49b566429cb1c89ac
+guid: f97c1bae6bd8ebc4b9c0a3a404575da8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -666258495458938876
-    second: 15 by 15 orthogonal maze (1)_0
-  - first:
-      213: 6355875874941975456
-    second: 15 by 15 orthogonal maze (1)_1
-  - first:
-      213: 3690426416908576758
-    second: 15 by 15 orthogonal maze (1)_2
+      213: 3530468259919972060
+    second: pw_CrowEye_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Standalone
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -116,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -158,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 15 by 15 orthogonal maze (1)_0
+      name: pw_CrowEye_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 173
-        width: 117
-        height: 69
+        x: 1
+        y: 1
+        width: 62
+        height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,52 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4007599ad69f0c6f0800000000000000
-      internalID: -666258495458938876
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 15 by 15 orthogonal maze (1)_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 117
-        height: 232
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0ab3462fe6b943850800000000000000
-      internalID: 6355875874941975456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 15 by 15 orthogonal maze (1)_2
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 0
-        width: 213
-        height: 242
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6f7ad810647073330800000000000000
-      internalID: 3690426416908576758
+      spriteID: cd6425b5d2ebef030800000000000000
+      internalID: 3530468259919972060
       vertices: []
       indices: 
       edges: []
@@ -236,10 +186,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      15 by 15 orthogonal maze (1)_0: -666258495458938876
-      15 by 15 orthogonal maze (1)_1: 6355875874941975456
-      15 by 15 orthogonal maze (1)_2: 3690426416908576758
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
