@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
 {
     //Creating the objects
     public GameUI gameUI;
-    public PlayerMovement playerMovement;
-    public MazeController mazeController;
-    public ItemManager itemManager;
+    //public PlayerMovement playerMovement;
+    //public MazeController mazeController;
+    //public ItemManager itemManager;
     public TimeManager timeManager;
     public ScoreManager scoreManager;
 
@@ -109,14 +109,14 @@ public class GameManager : MonoBehaviour
         timeManager.StartTime();
 
         //MazeController need to reset the mazer
-        mazeController.StartDefaultMaze();
+        //mazeController.StartDefaultMaze();
 
         //UIManager needs to start with a default HUD
         //gameUI.StartDefaultUI();
         gameUI.DisplayGameUI(true);
 
         //PlayerController needs to enable the player
-        playerMovement.SetMovementEnabled(true);
+        //playerMovement.SetMovementEnabled(true);
 
     }
 
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         timeManager.PauseTime();
 
         //Disalbe player movement
-        playerMovement.SetMovementEnabled(false);
+        //playerMovement.SetMovementEnabled(false);
 
         //Display Pause Screen
         gameUI.DisplayPauseScreen(true);
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
 
         //Enable player movement
         //characterMovement.EnablePlayer();
-        playerMovement.SetMovementEnabled(true);
+        //playerMovement.SetMovementEnabled(true);
 
         //Close Pause Screen
         gameUI.DisplayPauseScreen(false);
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
             //UpdateScore(100);
             scoreManager.UpdateScore(100);
 
-            gameUI.DisplayMsg("Key founded! Search for the exit door!");
+            //gameUI.DisplayMsg("Key founded! Search for the exit door!");
         }
         else if (item.tag == "door")
         {
@@ -215,13 +215,13 @@ public class GameManager : MonoBehaviour
             {
                 //Stoping the timer to display the message
                 PauseMaze();
-                gameUI.DisplayMsg("You need a key to open this door!");
+                //gameUI.DisplayMsg("You need a key to open this door!");
             }
         }
         else
         {
             //Call the ItemManager to handle the effects
-            itemManager.ApplyItemEffects(item);
+            //itemManager.ApplyItemEffects(item);
         }
 
     }
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
         gameUI.UpdateEndGameScore(scoreManager.GetScore());
 
         //Disable player movements
-        playerMovement.SetMovementEnabled(false);
+        //playerMovement.SetMovementEnabled(false);
 
         //Increse the number of attempts
         if (!isWinner)
@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Call UI to display winner screen
-        gameUI.DisplayEndGame(isWinner);
+        //gameUI.DisplayEndGame(isWinner);
     }
 
     //Update the score. Increase or decrease
