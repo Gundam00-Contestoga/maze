@@ -28,11 +28,11 @@ public class PlayerMovement : MonoBehaviour
             // Flip player left or right
             if (horizontal < 0)
             {
-                transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+                transform.localScale = new Vector3(-1.75f, 1.75f, 1);
             }
             else if (horizontal > 0)
             {
-                transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                transform.localScale = new Vector3(1.75f, 1.75f, 1);
             }
 
             //Set animator parameters
