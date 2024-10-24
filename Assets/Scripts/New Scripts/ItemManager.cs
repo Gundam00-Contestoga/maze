@@ -15,7 +15,6 @@ public class ItemManager : MonoBehaviour
     public ItemManager()
     {
         persistentItems = new List<Item>();
-        itemSprites = new List<Sprite>();
     }
     public void ApplyItemEffects(GameObject item) //Add Item
     {
@@ -25,10 +24,9 @@ public class ItemManager : MonoBehaviour
             Clock item1 = new Clock("Clock",sprite);
 
             persistentItems.Add(item1);
-            itemSprites.Add(sprite);
 
 
-            gameUI.UpdateInventoryUI(itemSprites);
+            gameUI.UpdateCurrentItem(sprite);
             gameManager.UpdateScore(10);
             Destroy(item1);
 
@@ -40,9 +38,8 @@ public class ItemManager : MonoBehaviour
             Boots item1 = new Boots("Boots", sprite);
 
             persistentItems.Add(item1);
-            itemSprites.Add(sprite);
 
-            gameUI.UpdateInventoryUI(itemSprites);
+            gameUI.UpdateCurrentItem(sprite);
             gameManager.UpdateScore(10);
             Destroy(item1);
         }
@@ -52,9 +49,9 @@ public class ItemManager : MonoBehaviour
             Crow item1 = new Crow("Crow", sprite);
 
             persistentItems.Add(item1);
-            itemSprites.Add(sprite);
 
-            gameUI.UpdateInventoryUI(itemSprites);
+
+            gameUI.UpdateCurrentItem(sprite);
             gameManager.UpdateScore(10);
             Destroy(item1);
         }
@@ -64,9 +61,9 @@ public class ItemManager : MonoBehaviour
             Scythe item1 = new Scythe("Scythe", sprite);
 
             persistentItems.Add(item1);
-            itemSprites.Add(sprite);
 
-            gameUI.UpdateInventoryUI(itemSprites);
+
+            gameUI.UpdateCurrentItem(sprite);
             gameManager.UpdateScore(10);
             Destroy(item1);
         }
@@ -75,34 +72,22 @@ public class ItemManager : MonoBehaviour
     {
         gameManager.UpdateTimer(clock.timeIncreaseAmount); //GameManager
         persistentItems.Remove(clock);
-        Sprite sprite = clock.GetComponent<Sprite>();
-        itemSprites.Remove(sprite);
-        gameUI.UpdateInventoryUI(itemSprites);
     }
 
     public void UseItem(Boots boots)
     {
         //PlayerMovement.UptadeSpeed(boots.speedIncreaseAmount); //Player Movement
         persistentItems.Remove(boots);
-        Sprite sprite = boots.GetComponent<Sprite>();
-        itemSprites.Remove(sprite);
-        gameUI.UpdateInventoryUI(itemSprites);
     }
 
     public void UseItem(Crow Crow)
     {
         //PlayerMovement.IncreaseView(); //PlayerMovement?
         persistentItems.Remove(Crow);
-        Sprite sprite = Crow.GetComponent<Sprite>();
-        itemSprites.Remove(sprite);
-        gameUI.UpdateInventoryUI(itemSprites);
     }
     public void UseItem(Scythe scythe)
     {
         //PlayerMovement.Cut(); //PlayerMovement?
         persistentItems.Remove(scythe);
-        Sprite sprite = scythe.GetComponent<Sprite>();
-        itemSprites.Remove(sprite);
-        gameUI.UpdateInventoryUI(itemSprites);
     }
 }
