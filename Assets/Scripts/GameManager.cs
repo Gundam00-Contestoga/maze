@@ -21,13 +21,14 @@ public class GameManager : MonoBehaviour
     //public float gameTimer; //Time.deltaTime needs to be a float
     //public bool isGamePaused; Replaced by Time.timeScale
     public bool isWinner;
-    public TimeSpan levelDuration = TimeSpan.FromMinutes(3);
+    public TimeSpan levelDuration;
+    public int numberOfAttempts = 0;
 
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         //Creating the object
         //timeManager = new TimeManager(levelDuration);
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //Update the timer every frame
         //ControlTimer();
@@ -72,11 +73,15 @@ public class GameManager : MonoBehaviour
     //MazeController needs to reset the maze
     //UIManager needs to start with a default HUD
     //PlayerController needs to enable the player movements
-    void StartMaze()
+    public void StartMaze()
     {
 
         //UI needs to close the Start Menu
         gameUI.DisplayStartMenu(false);
+
+        //Increase the timer using the number of attempts
+        levelDuration = TimeSpan.FromMinutes(3 + numberOfAttempts);
+
 
         //Creating the objects
         timeManager = new TimeManager(levelDuration);
@@ -118,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     //PlayerController need to disable the player movements
     //UIManager needs to display Pause screen
-    void PauseMaze()
+    public void PauseMaze()
     {
         //Pausing the timer
         //Time.timeScale = 0;
@@ -135,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     //PlayerController needs to enable the player movements
     //UIManager needs to close Pause screen
-    void ResumeMaze()
+    public void ResumeMaze()
     {
         //Restarting the timer
         //Time.timeScale = 1;
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
 
 
     //Reset the Maze
-    void ResetMaze()
+    public void ResetMaze()
     {
         //Just call the StartMaze
         StartMaze();
@@ -180,7 +185,7 @@ public class GameManager : MonoBehaviour
 
 
     //Control the collision with an item
-    void ControlCollision(GameObject item)
+    public void ControlCollision(GameObject item)
     {
         //Check if it is a key
         if (item.tag == "key")
@@ -222,7 +227,7 @@ public class GameManager : MonoBehaviour
     }
 
     //End the maze and display the winner or loser screen
-    void EndMaze()
+    public void EndMaze()
     {
         //Stoping the timer
         //Time.timeScale = 0;
@@ -244,19 +249,25 @@ public class GameManager : MonoBehaviour
         //Disable player movements
         playerMovement.SetMovementEnabled(false);
 
+        //Increse the number of attempts
+        if (!isWinner)
+        {
+            numberOfAttempts++;
+        }
+
         //Call UI to display winner screen
         gameUI.DisplayEndGame(isWinner);
     }
 
     //Update the score. Increase or decrease
-    void UpdateScore(int scoreToUpdate)
+    public void UpdateScore(int scoreToUpdate)
     {
         score += scoreToUpdate;
         gameUI.UpdateScore(score);
     }
 
     //Update the time system. Increase or decrease
-    void UpdateTime(float timeToUpdate)
+    public void UpdateTime(float timeToUpdate)
     {
         //gameTimer += timeToUpdate;
         //gameUI.UpdateTimer(gameTimer);
@@ -268,13 +279,13 @@ public class GameManager : MonoBehaviour
 
     
     //Linking the buttons on Menus
-    private void OnEnable()
+    public void OnEnable()
     {
         GameUI.OnContinuePressed += ResumeMaze;
         GameUI.OnExitPressed += ExitGame;
         GameUI.OnStartPressed += StartMaze;
     }
-    private void OnDisable()
+    public void OnDisable()
     {
         GameUI.OnContinuePressed -= ResumeMaze;
         GameUI.OnExitPressed -= ExitGame;
