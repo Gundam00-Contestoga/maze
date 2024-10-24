@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -6,26 +7,17 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private Vector3 originalScale;
     private Rigidbody2D rb;
-
-    //// Variavel Fernando
-    //private GameManager gameManager;
-
-    //// Variaveis Guilherme
-    //private float speed = 3f;
-    //private Camera mainCamera;
-
+    public VisualEffect vfxRenderer;
+    public Vector3 colliderOffset;
+    public float speed = 3f;
 
     void Start()
     {
-        // Inicializa as variaveis
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        // Congela a rotação
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        //// Salva a escala original
-        //mainCamera = Camera.main;
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -35,49 +27,47 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMovementEnabled)
         {
-            GetComponent<Rigidbody2D>().linearVelocity = new Vector2(horizontal * 3, vertical * 3);
+            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela variável 'speed'
+            Vector2 newPosition = rb.position + movement * Time.deltaTime;
 
-            // Flip player left or right
+            rb.MovePosition(newPosition);
+
             if (horizontal < 0)
             {
-                transform.localScale = new Vector3(-1.75f, 1.75f, 1);
+                transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
             }
             else if (horizontal > 0)
             {
-                transform.localScale = new Vector3(1.75f, 1.75f, 1);
+                transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
             }
 
-            //Set animator parameters
             anim.SetBool("run", horizontal != 0 || vertical != 0);
+
+            Vector3 colliderPosition = transform.position + colliderOffset;
+            vfxRenderer.SetVector3("ColliderPos", colliderPosition);
         }
     }
 
-    ////Metodos SetMovementEnabled criado para o Fernando
-    //public void SetMovementEnabled(bool isEnabled)
-    //{
-    //    isMovementEnabled = isEnabled;
-    //}
+    public void SetMovementEnabled(bool isEnabled)
+    {
+        isMovementEnabled = isEnabled;
+    }
 
-    ////Metodo HandleItemCollision criado para o Fernando
-    //public void HandleItemCollision(GameObject item)
-    //{
-    //    gameManager.ControlCollision(item);
-    //    Debug.Log("Colidiu com o item: " + item.name);
-    //}
-
-
-    ////Metodo IncreaseSpeed criado para o Guilerme
-    //public void IncreaseSpeed(float amount)
-    //{
-    //    speed += amount;
-    //}
-
-    ////Metodo IncreaseVision criado para o Guilerme
-    //public void IncreaseVision(float amount)
-    //{
-    //    if (mainCamera != null)
+    //    void Awake()
     //    {
-    //        mainCamera.orthographicSize += amount;
+    //        if (Instance == null)
+    //        {
+    //            Instance = this;
+    //        }
+    //        else
+    //        {
+    //            Destroy(gameObject);
+    //        }
     //    }
-    //}
+
+    //    public void HandleItemCollision(GameObject item)
+    //    {
+    //        // Lógica para lidar com a colisão do item
+    //        Debug.Log("Colidiu com o item: " + item.name);
+    //    }
 }
