@@ -6,14 +6,26 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private Vector3 originalScale;
     private Rigidbody2D rb;
-    //public static GameManager Instance;
+
+    //// Variavel Fernando
+    //private GameManager gameManager;
+
+    //// Variaveis Guilherme
+    //private float speed = 3f;
+    //private Camera mainCamera;
+
 
     void Start()
     {
+        // Inicializa as variaveis
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
         // Congela a rotação
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        //// Salva a escala original
+        //mainCamera = Camera.main;
     }
 
     void Update()
@@ -40,26 +52,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetMovementEnabled(bool isEnabled)
-    {
-        isMovementEnabled = isEnabled;
-    }
+    ////Metodos SetMovementEnabled criado para o Fernando
+    //public void SetMovementEnabled(bool isEnabled)
+    //{
+    //    isMovementEnabled = isEnabled;
+    //}
 
-    //    void Awake()
-    //    {
-    //        if (Instance == null)
-    //        {
-    //            Instance = this;
-    //        }
-    //        else
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
+    ////Metodo HandleItemCollision criado para o Fernando
+    //public void HandleItemCollision(GameObject item)
+    //{
+    //    gameManager.ControlCollision(item);
+    //    Debug.Log("Colidiu com o item: " + item.name);
+    //}
 
-    //    public void HandleItemCollision(GameObject item)
+
+    ////Metodo IncreaseSpeed criado para o Guilerme
+    //public void IncreaseSpeed(float amount)
+    //{
+    //    speed += amount;
+    //}
+
+    ////Metodo IncreaseVision criado para o Guilerme
+    //public void IncreaseVision(float amount)
+    //{
+    //    if (mainCamera != null)
     //    {
-    //        // Lógica para lidar com a colisão do item
-    //        Debug.Log("Colidiu com o item: " + item.name);
+    //        mainCamera.orthographicSize += amount;
     //    }
+    //}
 }
