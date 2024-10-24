@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private Vector3 originalScale;
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     public VisualEffect vfxRenderer;
     public Vector3 colliderOffset;
     public float speed = 3f;
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMovementEnabled)
         {
-            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela variável 'speed'
+            Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
             Vector2 newPosition = rb.position + movement * Time.deltaTime;
 
             rb.MovePosition(newPosition);
@@ -53,21 +54,25 @@ public class PlayerMovement : MonoBehaviour
         isMovementEnabled = isEnabled;
     }
 
-    //    void Awake()
-    //    {
-    //        if (Instance == null)
-    //        {
-    //            Instance = this;
-    //        }
-    //        else
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
+    public void SetColliderOffset(Vector3 offset)
+    {
+        colliderOffset = offset;
+    }
 
-    //    public void HandleItemCollision(GameObject item)
-    //    {
-    //        // Lógica para lidar com a colisão do item
-    //        Debug.Log("Colidiu com o item: " + item.name);
-    //    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<SpriteRenderer>() != null)
+        {
+            Debug.Log("Colidiu com um sprite: " + collision.gameObject.name);
+
+            if (collision.gameObject.CompareTag("unbreakable"))
+            {
+                Debug.Log("A parede é inquebrável.");
+            }
+            else if (collision.gameObject.CompareTag("breakable"))
+            {
+                Debug.Log("A parede é quebrável.");
+            }
+        }
+    }
 }
