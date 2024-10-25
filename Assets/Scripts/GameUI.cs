@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour, IGameUI
@@ -37,6 +38,7 @@ public class GameUI : MonoBehaviour, IGameUI
     public GameObject endGamePanel;
     public TextMeshProUGUI endGameTimerText;
     public TextMeshProUGUI endGameScoreText;
+    public TextMeshProUGUI endGameMessage;
 
 
     #region Gameplay UI
@@ -52,6 +54,12 @@ public class GameUI : MonoBehaviour, IGameUI
             itemImage.enabled = false;
             itemGlowEffect.enabled = false;
         }
+    }
+
+    public void ClearCurrentItem()
+    {
+        itemImage.enabled = false;
+        itemImage.sprite = null;
     }
 
     public void SetItemConfirmation()
@@ -82,6 +90,17 @@ public class GameUI : MonoBehaviour, IGameUI
         endGameTimerText.text = "Final Timer: " + string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
     }
 
+    public void UpdateEndGameMessage(bool hasWon)
+    {
+        if (hasWon)
+        {
+            endGameMessage.text = "Congratulations! You Escaped the Maze!";
+        }
+        else
+        {
+            endGameMessage.text = "Too bad! You didn't make it in time!";
+        }
+    }
 
     #endregion
 
