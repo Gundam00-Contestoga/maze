@@ -9,7 +9,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public VisualEffect vfxRenderer;
     public Vector3 colliderOffset;
+    
+
+    // Variavel Fernando
+    private GameManager gameManager;
+
+    // Variaveis Guilherme
     public float speed = 3f;
+    private Camera mainCamera;
 
     void Start()
     {
@@ -27,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMovementEnabled)
         {
-            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela variável 'speed'
+            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela variï¿½vel 'speed'
             Vector2 newPosition = rb.position + movement * Time.deltaTime;
 
             rb.MovePosition(newPosition);
@@ -53,21 +60,31 @@ public class PlayerMovement : MonoBehaviour
         isMovementEnabled = isEnabled;
     }
 
-    //    void Awake()
-    //    {
-    //        if (Instance == null)
-    //        {
-    //            Instance = this;
-    //        }
-    //        else
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
+        // Metodos SetMovementEnabled criado para o Fernando
+    // public void SetMovementEnabled(bool isEnabled)
+    // {
+    //     isMovementEnabled = isEnabled;
+    // }
 
-    //    public void HandleItemCollision(GameObject item)
-    //    {
-    //        // Lógica para lidar com a colisão do item
-    //        Debug.Log("Colidiu com o item: " + item.name);
-    //    }
+    // Metodo HandleItemCollision criado para o Fernando
+    public void HandleItemCollision(GameObject item)
+    {
+        gameManager.ControlCollision(item);
+        Debug.Log("Colidiu com o item: " + item.name);
+    }
+
+    // Metodo IncreaseSpeed criado para o Guilherme
+    public void IncreaseSpeed(float amount)
+    {
+        speed += amount;
+    }
+
+    // Metodo IncreaseVision criado para o Guilherme
+    public void IncreaseVision(float amount)
+    {
+        if (mainCamera != null)
+        {
+            mainCamera.orthographicSize += amount;
+        }
+    }
 }
