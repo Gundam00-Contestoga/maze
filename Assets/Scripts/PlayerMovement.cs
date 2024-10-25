@@ -9,7 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public VisualEffect vfxRenderer;
     public Vector3 colliderOffset;
+
+    // Variavel Fernando
+    private GameManager gameManager;
+
+    // Variaveis Guilherme
     public float speed = 3f;
+    private Camera mainCamera;
 
     void Start()
     {
@@ -27,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMovementEnabled)
         {
-            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela vari�vel 'speed'
+            Vector2 movement = new Vector2(horizontal * speed, vertical * speed); // Multiplicado pela vari�vel 'speed'
             Vector2 newPosition = rb.position + movement * Time.deltaTime;
 
             rb.MovePosition(newPosition);
@@ -48,26 +54,51 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetMovementEnabled(bool isEnabled)
+    //Metodos SetMovementEnabled criado para o Fernando
+     public void SetMovementEnabled(bool isEnabled)
+     {
+         isMovementEnabled = isEnabled;
+     }
+
+    //// Metodo HandleItemCollision criado para o Fernando
+    //public void HandleItemCollision(GameObject item)
+    //{
+    //    gameManager.ControlCollision(item);
+    //    Debug.Log("Colidiu com o item: " + item.name);
+    //}
+
+    // Metodo IncreaseSpeed criado para o Guilherme
+    public void IncreaseSpeed(float amount)
     {
-        isMovementEnabled = isEnabled;
+        speed += amount;
     }
 
-    //    void Awake()
-    //    {
-    //        if (Instance == null)
-    //        {
-    //            Instance = this;
-    //        }
-    //        else
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
+    // Metodo IncreaseVision criado para o Guilherme
+    public void IncreaseVision(float amount)
+    {
+        if (mainCamera != null)
+        {
+            mainCamera.orthographicSize += amount;
+        }
+    }
 
-    //    public void HandleItemCollision(GameObject item)
-    //    {
-    //        // L�gica para lidar com a colis�o do item
-    //        Debug.Log("Colidiu com o item: " + item.name);
-    //    }
+
+    // Método para detectar colisões
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<SpriteRenderer>() != null)
+        {
+            Debug.Log("Colidiu com um sprite: " + collision.gameObject.name);
+
+            // Verifica a tag da parede
+            if (collision.gameObject.CompareTag("unbreakable"))
+            {
+                Debug.Log("A parede é inquebrável.");
+            }
+            else if (collision.gameObject.CompareTag("breakable"))
+            {
+                Debug.Log("A parede é quebrável.");
+            }
+        }
+    }
 }

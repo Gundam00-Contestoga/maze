@@ -92,14 +92,14 @@ public class GameManager : MonoBehaviour
         score = 0;
 
         /*
-            O Time.timeScale é uma propriedade do Unity que controla a velocidade do tempo do jogo. 
-            É muito útil para pausar o jogo ou desacelerar o tempo.
-            Time.timeScale = 1: O tempo do jogo está em velocidade normal.
-            Time.timeScale = 0: O jogo está pausado (todas as atualizações de Update, animações e física param).
-            Time.timeScale < 1: O jogo é desacelerado (ex.: 0.5 significa que o tempo passa à metade da velocidade normal).
+            O Time.timeScale ï¿½ uma propriedade do Unity que controla a velocidade do tempo do jogo. 
+            ï¿½ muito ï¿½til para pausar o jogo ou desacelerar o tempo.
+            Time.timeScale = 1: O tempo do jogo estï¿½ em velocidade normal.
+            Time.timeScale = 0: O jogo estï¿½ pausado (todas as atualizaï¿½ï¿½es de Update, animaï¿½ï¿½es e fï¿½sica param).
+            Time.timeScale < 1: O jogo ï¿½ desacelerado (ex.: 0.5 significa que o tempo passa ï¿½ metade da velocidade normal).
         */
         //Game is running
-        //Não preciso mais disso. Vou adiministrar na TimeManager
+        //Nï¿½o preciso mais disso. Vou adiministrar na TimeManager
         //Time.timeScale = 1;
 
 
