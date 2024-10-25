@@ -14,19 +14,19 @@ public abstract class Item : MonoBehaviour
 }
 public class Clock : Item
 {
-    GameManager gameManager; /*--- Instância*/
+    GameManager gameManager; /*--- Instï¿½ncia*/
     public float timeIncreaseAmount = 50;
     public Clock(string name, Sprite sprite): base(name, sprite)
     {
     }
     public override void Use() 
     {
-        gameManager.UpdateTimer(timeIncreaseAmount);
+        gameManager.UpdateTime(timeIncreaseAmount);
     }
 }
 public class Boots : Item
 {
-    PlayerMovement playerMovement; /*--- Instância*/
+    PlayerMovement playerMovement; /*--- Instï¿½ncia*/
     public float speedIncreaseAmount = 20;
 
     public Boots(string name, Sprite sprite) : base(name, sprite)
@@ -39,7 +39,7 @@ public class Boots : Item
 }
 public class Crow : Item
 {
-    PlayerMovement playerMovement; /*--- Instância*/
+    PlayerMovement playerMovement; /*--- Instï¿½ncia*/
 
     public float visionIncreaseAmount = 20;
     public Crow(string name, Sprite sprite) : base(name, sprite)
