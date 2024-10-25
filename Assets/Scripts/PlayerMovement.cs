@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public VisualEffect vfxRenderer;
     public Vector3 colliderOffset;
-    
 
     // Variavel Fernando
     private GameManager gameManager;
@@ -55,23 +54,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetMovementEnabled(bool isEnabled)
-    {
-        isMovementEnabled = isEnabled;
-    }
+    //Metodos SetMovementEnabled criado para o Fernando
+     public void SetMovementEnabled(bool isEnabled)
+     {
+         isMovementEnabled = isEnabled;
+     }
 
-        // Metodos SetMovementEnabled criado para o Fernando
-    // public void SetMovementEnabled(bool isEnabled)
-    // {
-    //     isMovementEnabled = isEnabled;
-    // }
-
-    // Metodo HandleItemCollision criado para o Fernando
-    public void HandleItemCollision(GameObject item)
-    {
-        gameManager.ControlCollision(item);
-        Debug.Log("Colidiu com o item: " + item.name);
-    }
+    //// Metodo HandleItemCollision criado para o Fernando
+    //public void HandleItemCollision(GameObject item)
+    //{
+    //    gameManager.ControlCollision(item);
+    //    Debug.Log("Colidiu com o item: " + item.name);
+    //}
 
     // Metodo IncreaseSpeed criado para o Guilherme
     public void IncreaseSpeed(float amount)
@@ -85,6 +79,26 @@ public class PlayerMovement : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.orthographicSize += amount;
+        }
+    }
+
+
+    // Método para detectar colisões
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<SpriteRenderer>() != null)
+        {
+            Debug.Log("Colidiu com um sprite: " + collision.gameObject.name);
+
+            // Verifica a tag da parede
+            if (collision.gameObject.CompareTag("unbreakable"))
+            {
+                Debug.Log("A parede é inquebrável.");
+            }
+            else if (collision.gameObject.CompareTag("breakable"))
+            {
+                Debug.Log("A parede é quebrável.");
+            }
         }
     }
 }
